@@ -6,27 +6,32 @@ const connection = mysql.createConnection({
     database:"nodejs"
   });
   
-  connection.connect((err) => {
-    if (err) {
-      console.error('Error connecting to the database:', err);
-      return;
-    }
-    console.log('Connected to the database!');
-  });
-  export const executeQuery = (sqlQuery: string) => {
+export const connectNodeDatabase = () => {
+    return new Promise((resolve, reject) => {
+        try {
+            connection.connect((error) => {
+                if (error) return reject(error);
+                return resolve('Database connected sucessfully');
+            })
+
+        } catch (error) {
+            console.log("connectDatabase.ts: database connection ~ error", error)
+        }
+    })
+};
+
+export const executeQuery = (sqlQuery: string) => {
     return new Promise((resolve, reject) => {
         try {
             connection.query(sqlQuery, (error, response) => {
-                console.log("query error", error)
+                console.log("connectDatabase.ts ~ connection.query ~ error:", error)
                 if (error) return reject(error)
-
                 return resolve(response)
             })
         } catch (error) {
-            console.log("connection error ", error)
+            console.log("connectDatabase.ts ~ returnnewPromise ~ error:", error)
 
         }
     })
-}
- 
+};
   export default connection;
