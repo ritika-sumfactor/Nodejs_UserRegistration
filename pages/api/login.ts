@@ -5,10 +5,13 @@ import { executeQuery } from '../../lib/database/connectDatabase';
 import { generateJwtToken, refreshAccessToken } from "../../lib/server";
 
 export default async function login(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === 'POST') {
+    // console.log(req.body, "in body")
+    if (req.method == 'POST') {
         try {
             const { email, password } = req.body;
+
             const getRecordQuery = `select * from user_table where email='${email}'`;
+
             const getRecord: any = await executeQuery(getRecordQuery);
 
             if (getRecord.length == 0) res.status(404).send({ message: "user not found please register and try again to login" });
@@ -31,4 +34,4 @@ export default async function login(req: NextApiRequest, res: NextApiResponse) {
     else {
         res.send({ done: false });
     }
-}
+};
