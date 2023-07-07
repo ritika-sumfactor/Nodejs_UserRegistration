@@ -11,7 +11,7 @@ export default function Registration() {
 
   const handleClick = (e: any) => {
     e.preventDefault();
-    router.push('/login')
+    router.push('/api/registeruser')
   }
 
   const handleRegistration = async (e: any) => {
@@ -19,6 +19,7 @@ export default function Registration() {
 
     const userData = {
       first_name,
+      last_name,
       email,
       password
     };
@@ -48,12 +49,19 @@ export default function Registration() {
     <h1>Registration Form</h1>
       <form onSubmit={handleRegistration}>
         <div>
-          <label htmlFor="first_name">First Name: </label>
+          <label htmlFor="First_name">First_name: </label>
           <input
             type="text"
-            id="firstName"
-            value={first_name}
+            id="First_name"
             onChange={(e) => setFirstName(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="Last_name">Last_name: </label>
+          <input
+            type="text"
+            id="Last_name"
+            onChange={(e) => setLastName(e.target.value)}
           />
         </div>
         <div>

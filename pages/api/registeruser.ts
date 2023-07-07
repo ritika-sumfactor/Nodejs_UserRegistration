@@ -6,12 +6,12 @@ import { executeQuery } from '../../lib/database/connectDatabase';
 export default async function userController(req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
         try {
-            let { email, password, token } = req.body
+            let { email, password, token,First_name,Last_name } = req.body
             // console.log(req.body);
             // const sqlQuery = `insert into user_table (email,password)values("ritika@gmail.com", "Root@1234$")`
 
             //=========================== AVOID DUPLICACY ===========================
-            const getRecord = `select * from user_table where email='${email}'`
+            const getRecord = `select * from user_table`
 
             let resultset: any = await executeQuery(getRecord);
 
@@ -39,7 +39,7 @@ export default async function userController(req: NextApiRequest, res: NextApiRe
             // const sqlQuery = `delete from user_table where token=67239`
 
 
-            const sqlQuery = `insert into user_table (email,password,token)values('${email}', '${hashedPassword}', '${token}')`
+            const sqlQuery = `insert into user_table (email,password,token,First_name,Last_name)values('${email}', '${hashedPassword}', '${token}','${First_name}','${Last_name}')`
 
             let response = await executeQuery(sqlQuery);
 
